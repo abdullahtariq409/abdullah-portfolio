@@ -337,12 +337,44 @@ img {
 
 .highlight-line {
     display: inline-block;
-    padding: 0.1em 0.3em; 
+    padding: 0.1em 0.3em;
     border-radius: 8px;
-    margin: 0.1em 0.2em; /* Margen vertical para evitar solapamiento si se rompe la línea */
-    /* white-space: nowrap; */ /* ELIMINADO para móvil, re-añadido en desktop */
+    margin: 0.1em 0.2em;
     transition: var(--transition);
+    will-change: transform, opacity;
+
+    /* start hidden and animate in */
+    opacity: 0;
+    transform: translateY(15px);
+    animation: slideIn 0.6s ease forwards;
 }
+
+/* stagger optional */
+.highlight-line:nth-child(1) { animation-delay: 0.04s; }
+.highlight-line:nth-child(2) { animation-delay: 0.8s; }
+.highlight-line:nth-child(3) { animation-delay: 0.12s; }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accessibility: respect user reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .highlight-line {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
 
 .line-dev {
     background-color: var(--accent-color-dev);
@@ -384,7 +416,7 @@ img {
 
 .choice-dev:hover {
     transform: translateY(-5px) scale(1.03); /* Hover más sutil */
-    box-shadow: 0 10px 25px rgba(74, 144, 226, 0.5);
+    box-shadow: 0 10px 25px rgba(117, 178, 247, 0.5);
 }
 
 .choice-stat:hover {

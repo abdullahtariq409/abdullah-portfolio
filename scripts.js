@@ -37,3 +37,20 @@ function filterAndDisplayPosts(searchTerm = '', category = 'all') {
         }
     });
 }
+/* ---------------------------
+   Smooth Scrolling (No URL Change)
+------------------------------ */
+
+document.querySelectorAll('.smooth-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault(); // Stop URL from changing (#about removed)
+
+        const targetSection = document.querySelector(this.getAttribute('href'));
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
